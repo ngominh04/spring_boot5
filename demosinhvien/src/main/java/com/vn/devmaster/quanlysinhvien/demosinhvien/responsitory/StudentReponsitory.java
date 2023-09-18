@@ -3,6 +3,8 @@ package com.vn.devmaster.quanlysinhvien.demosinhvien.responsitory;
 import com.vn.devmaster.quanlysinhvien.demosinhvien.domain.Adress;
 import com.vn.devmaster.quanlysinhvien.demosinhvien.domain.Student;
 import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.StudentDTO;
+import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.StudentDTO1;
+import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.StudentDTO_Point_8;
 import org.hibernate.metamodel.model.convert.spi.JpaAttributeConverter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +12,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
 @Repository
 public interface StudentReponsitory extends JpaRepository<Student, Integer> {
     // viết query theo native
@@ -49,6 +50,10 @@ public interface StudentReponsitory extends JpaRepository<Student, Integer> {
 
     // lấy ra sinh viên lớp DEV02 gồm (first_name+last_name),tên lớp,tên môn,điểm
     @Query(nativeQuery = true)
-    List<StudentDTO> getClasses_DEV02();
+    List<StudentDTO1> getClasses_DEV02();
+
+    // lấy ra sinh viên có điểm >=8
+    @Query(nativeQuery = true)
+    List<StudentDTO_Point_8> getPoint_8();
 }
 

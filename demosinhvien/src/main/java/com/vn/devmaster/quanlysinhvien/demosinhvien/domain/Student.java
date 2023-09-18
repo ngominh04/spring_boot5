@@ -1,9 +1,6 @@
 package com.vn.devmaster.quanlysinhvien.demosinhvien.domain;
 
-import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.ClassesDto;
-import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.StudentDTO;
-import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.StudentDTO1;
-import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.SubjectDTO;
+import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,30 +12,56 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// lấy ra sinh viên học lớp DEV02
 @SqlResultSetMapping(
-        name = "/Student_DEV02",
+    name = "/Student_DEV02",
+    classes = {
+            @ConstructorResult(
+                    targetClass = StudentDTO1.class,
+                    columns = {
+                            @ColumnResult(name = "first_name",type = String.class),
+                            @ColumnResult(name = "last_name",type = String.class),
+                            @ColumnResult(name = "name",type = String.class)
+//                                ,@ColumnResult(name = "nameSubject",type = String.class)
+                            ,@ColumnResult(name = "point",type = int.class)
+                    }
+            )
+    }
+)
+@NamedNativeQuery(
+        name = "Student.getClasses_DEV02",
+        query = " select s.first_name,s.last_name,c.name,ss.point from student s inner join\n " +
+                "    student_subject ss on s.id = ss.id_student\n " +
+                "    inner join subject s3 on ss.id_subject = s3.id\n " +
+                "    inner join classes c on s.classes_id = c.id\n " +
+                " where c.name = 'DEV02' ",
+        resultSetMapping = "/Student_DEV02",
+        resultClass = Student.class
+)
+// ly sinh viên có điểm >= 8 (2)
+@SqlResultSetMapping(
+        name = "/Student_Pont_8",
         classes = {
                 @ConstructorResult(
-                        targetClass = StudentDTO1.class,
+                        targetClass = StudentDTO_Point_8.class,
                         columns = {
-                                @ColumnResult(name = "first_name",type = Student.class),
-                                @ColumnResult(name = "last_name",type = StudentDTO.class),
-                                @ColumnResult(name = "name",type = ClassesDto.class),
-                                @ColumnResult(name = "name",type = SubjectDTO.class)
-//                                ,@ColumnResult(name = "point",type = StudentSubject.class)
+                                @ColumnResult(name = "id",type = Integer.class),
+                                @ColumnResult(name = "first_name",type = String.class),
+                                @ColumnResult(name = "last_name",type = String.class),
+                                @ColumnResult(name = "name",type = String.class),
+                                @ColumnResult(name = "point",type = int.class),
                         }
                 )
         }
 )
 @NamedNativeQuery(
-        name = "Student.getClasses_DEV02",
-        query = " select concat(s.first_name,' ',s.last_name)as ten,c.name,s3.name,ss.point from student s inner join\n " +
-                "     student_subject ss on s.id = ss.id_student\n " +
-                "     inner join subject s3 on ss.id_subject = s3.id\n " +
-                "     inner join classes c on s.classes_id = c.id\n " +
-                " where c.name = 'DEV02' ",
-        resultSetMapping = "/Student_DEV02",
-        resultClass = Student.class
+        name = "Student.getPoint_8",
+        query = " select distinct s.id,s.first_name,s.last_name,s2.name,ss.point from student s\n" +
+                "    inner join student_subject ss on s.id = ss.id_student\n" +
+                "    inner join `manage-student`.subject s2 on ss.id_subject = s2.id\n" +
+                "where ss.point >= 8",
+        resultClass = Student.class,
+        resultSetMapping = "/Student_Pont_8"
 )
 @Data
 @Builder
@@ -70,4 +93,5 @@ public class Student {
         @JoinColumn(name = "classes_id")
     @Fetch(FetchMode.JOIN)
     private Classes classes;
+
 }

@@ -5,22 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentDTO1 {
-
-    // concat(s.first_name,' ',s.last_name)as ten,c.name,s3.name,ss.point
+public class StudentDTO_Point_8 {
+    private Integer id;
     private String first_name;
     private String last_name;
-
-    private String nameClasses;
-//    private String nameSubject;
+    private String name;
     private int point;
 
-
-//    public String getFullName() {
-//        return (first_name +" "+ last_name);
-//    }
 }

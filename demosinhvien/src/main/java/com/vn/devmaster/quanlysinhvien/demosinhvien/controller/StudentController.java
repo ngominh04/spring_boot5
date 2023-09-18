@@ -4,6 +4,8 @@ import com.vn.devmaster.quanlysinhvien.demosinhvien.domain.Adress;
 import com.vn.devmaster.quanlysinhvien.demosinhvien.domain.Student;
 import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.AddressDTO;
 import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.StudentDTO;
+import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.StudentDTO1;
+import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.StudentDTO_Point_8;
 import com.vn.devmaster.quanlysinhvien.demosinhvien.responsitory.StudentReponsitory;
 import com.vn.devmaster.quanlysinhvien.demosinhvien.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +90,12 @@ public class StudentController {
 
     // lấy sinh viên lớp DEV02
     @GetMapping("/Student_DEV02")
-    ResponseEntity<List<StudentDTO>> getClasses_DEV02(){
+    ResponseEntity<List<StudentDTO1>> getClasses_DEV02(){
         return ResponseEntity.ok(studentReponsitory.getClasses_DEV02());
+    }
+    // lấy ra sinh viên có điểm >=8 (2)
+    @GetMapping("/Student_Pont_8")
+    ResponseEntity<List<StudentDTO_Point_8>> getPoint_8(){
+        return ResponseEntity.ok(studentReponsitory.getPoint_8());
     }
 }

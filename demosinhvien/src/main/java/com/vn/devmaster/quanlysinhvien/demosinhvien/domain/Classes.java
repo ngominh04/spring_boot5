@@ -17,11 +17,13 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "classes")
+
+
 public class Classes {
     @Id
     @JoinColumn(name = "id")
     private Integer id;
-    @JoinColumn(name = "name")
+    @JoinColumn(name = "nameClasses")
     private String name;
 
     @OneToMany(fetch =  FetchType.LAZY)

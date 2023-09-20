@@ -9,12 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentDTO1 {
-    private String fullName;
-//    private String first_name;
-//    private String last_name;
-
-    private String nameClasses;
-    private String nameSubject;
-    private int point;
+public class AdressDTO1 {
+    private Integer id;
+    private String first_name;
+    private String last_name;
+    private String name;
+    private String city;
+    private String district;
 }

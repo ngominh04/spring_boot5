@@ -14,27 +14,28 @@ import java.util.List;
 
 // lấy ra sinh viên học lớp DEV02
 @SqlResultSetMapping(
-    name = "/Student_DEV02",
-    classes = {
-            @ConstructorResult(
-                    targetClass = StudentDTO1.class,
-                    columns = {
-                            @ColumnResult(name = "first_name",type = String.class),
-                            @ColumnResult(name = "last_name",type = String.class),
-                            @ColumnResult(name = "name",type = String.class)
-//                                ,@ColumnResult(name = "nameSubject",type = String.class)
+        name = "/Student_DEV02",
+        classes = {
+                @ConstructorResult(
+                        targetClass = StudentDTO1.class,
+                        columns = {
+//                            @ColumnResult(name = "first_name",type = String.class),
+//                            @ColumnResult(name = "last_name",type = String.class),
+                                @ColumnResult(name = "fullName",type = String.class),
+                                @ColumnResult(name = "nameClasses",type = String.class)
+                                ,@ColumnResult(name = "nameSubject",type = String.class)
                             ,@ColumnResult(name = "point",type = int.class)
-                    }
-            )
-    }
+                        }
+                )
+        }
 )
 @NamedNativeQuery(
         name = "Student.getClasses_DEV02",
-        query = " select s.first_name,s.last_name,c.name,ss.point from student s inner join\n " +
+        query = " select concat(first_name,' ',last_name) as fullName,c.nameClasses,s3.nameSubject,ss.point from student s inner join\n " +
                 "    student_subject ss on s.id = ss.id_student\n " +
                 "    inner join subject s3 on ss.id_subject = s3.id\n " +
                 "    inner join classes c on s.classes_id = c.id\n " +
-                " where c.name = 'DEV02' ",
+                " where c.nameClasses = 'DEV02' ",
         resultSetMapping = "/Student_DEV02",
         resultClass = Student.class
 )
@@ -48,7 +49,7 @@ import java.util.List;
                                 @ColumnResult(name = "id",type = Integer.class),
                                 @ColumnResult(name = "first_name",type = String.class),
                                 @ColumnResult(name = "last_name",type = String.class),
-                                @ColumnResult(name = "name",type = String.class),
+                                @ColumnResult(name = "nameSubject",type = String.class),
                                 @ColumnResult(name = "point",type = int.class),
                         }
                 )
@@ -56,12 +57,36 @@ import java.util.List;
 )
 @NamedNativeQuery(
         name = "Student.getPoint_8",
-        query = " select distinct s.id,s.first_name,s.last_name,s2.name,ss.point from student s\n" +
+        query = " select distinct s.id,s.first_name,s.last_name,s2.nameSubject,ss.point from student s\n" +
                 "    inner join student_subject ss on s.id = ss.id_student\n" +
                 "    inner join `manage-student`.subject s2 on ss.id_subject = s2.id\n" +
                 "where ss.point >= 8",
         resultClass = Student.class,
         resultSetMapping = "/Student_Pont_8"
+)
+//
+@SqlResultSetMapping(
+        name = "/Address_Student",
+        classes = {
+                @ConstructorResult(
+                        targetClass = AdressDTO1.class,
+                        columns = {
+                                @ColumnResult(name = "id",type = Integer.class),
+                                @ColumnResult(name = "first_name",type = String.class),
+                                @ColumnResult(name = "last_name",type = String.class),
+                                @ColumnResult(name = "name",type = String.class),
+                                @ColumnResult(name = "city",type = String.class),
+                                @ColumnResult(name = "district",type = String.class),
+                        }
+                )
+        }
+)
+@NamedNativeQuery(
+        name = "Student.getAddress_student",
+        query = "select s.id,s.first_name,s.last_name,a.name,a.city,a.district\n" +
+                "from adress a inner join `manage-student`.student s on a.id = s.id_address",
+        resultClass = Student.class,
+        resultSetMapping = "/Address_Student"
 )
 @Data
 @Builder

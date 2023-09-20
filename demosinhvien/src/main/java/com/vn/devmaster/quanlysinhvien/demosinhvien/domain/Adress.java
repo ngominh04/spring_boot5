@@ -1,5 +1,6 @@
 package com.vn.devmaster.quanlysinhvien.demosinhvien.domain;
 
+import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.AdressDTO1;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

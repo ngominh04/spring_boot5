@@ -1,11 +1,7 @@
 package com.vn.devmaster.quanlysinhvien.demosinhvien.controller;
 
-import com.vn.devmaster.quanlysinhvien.demosinhvien.domain.Adress;
 import com.vn.devmaster.quanlysinhvien.demosinhvien.domain.Student;
-import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.AddressDTO;
-import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.StudentDTO;
-import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.StudentDTO1;
-import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.StudentDTO_Point_8;
+import com.vn.devmaster.quanlysinhvien.demosinhvien.dto.*;
 import com.vn.devmaster.quanlysinhvien.demosinhvien.responsitory.StudentReponsitory;
 import com.vn.devmaster.quanlysinhvien.demosinhvien.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,4 +94,10 @@ public class StudentController {
     ResponseEntity<List<StudentDTO_Point_8>> getPoint_8(){
         return ResponseEntity.ok(studentReponsitory.getPoint_8());
     }
+
+    @GetMapping("/Address_Student")
+    ResponseEntity<List<AdressDTO1>> getAddress_student(){return ResponseEntity.ok(studentReponsitory.getAddress_student());}
+
+//    @GetMapping("/Address_Student1")
+//    ResponseEntity<List<AdressDTO1>> getAddress_student1(){return ResponseEntity.ok(studentReponsitory.getAddress_student1());}
 }

@@ -15,7 +15,7 @@ public class StudentDTO_Point_8 {
     private Integer id;
     private String first_name;
     private String last_name;
-    private String name;
+    private String nameSubject;
     private int point;
 
 }
